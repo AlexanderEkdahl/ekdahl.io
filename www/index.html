@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      color: white;
+    }
+
+    html, body, #wrapper {
+      width: 100%;
+      height: 100%;
+    }
+
+    #wrapper {
+      position: relative;
+    }
+
+    #inner {
+      width: 100%;
+      text-align: center;
+      position: absolute;
+      top: 8em;
+    }
+
+    h2 {
+      font-weight: normal;
+      font-size: 32px;
+      margin-bottom: 1.4em;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7 )
+    }
+
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      margin: 0.4em;
+    }
+
+    svg {
+      display: block;
+    }
+
+    path {
+      shape-rendering: crispEdges;
+    }
+  </style>
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+</head>
+<body>
+  <div id="wrapper">
+    <div id="inner">
+      <h2>
+        <a href="mailto:alexander@ekdahl.io">alexander@ekdahl.io</a>
+      </h2>
+      <div>
+        <a href="https://keybase.io/alexanderekdahl/key.asc">
+          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAADeElEQVRYhe2WTUhjVxTHf+9FEx1piNh2qI1SnIWIFDcu3GQXJpBCoXYxtGgJrbT0Y6y6aBZii4JiKUWK3RdGOmmJCLYgpalM6CYtAUWzqB9RoqGxmRCbjvl6+bpd5KXN2ExNmLG0JT84vMs77933v+ece8+DOnXq1Knz70a6wFduAAVAqPaPIQHy8PBwy/b2tjUajToKhUI6kUhs+v3+N9bW1q4BDfz9Yh6pGK3P53shHo9viApkMploKBT6ZG5u7glAvmwxTTs7O/Z8Pp+pJKacWCz2w8LCwjOAhr+mtxp7oIjStdHtdr9oMpluybLcUM0KwuHwutPpfKejoyOh1WqrqiudTicAFEXJWK3WU/6sy/sEySaT6erq6uqd1tbW7momLpHNZn+TJClfyzsAhUIh6ff77b29vctA9rwoncPheFkIURBCiJOTk3sul8t/fHwcuyh1D0Mul0t6vd7XAF1ZcJAAw+bm5udCCBEOh2N9fX0fA+NdXV3zBwcHkUsWlfZ6va8AjVDcJTLQbDAYugECgcDR1tbWd8D64eHh+u7u7k6t6agFIYQmGAxeBZoAqbRtG/b29gIA3d3dxomJCQ0Qstls2f7+/mu1fiSVSuVK43w+Xyj3KYryhy+TyeTm5+cdg4OD35c/owGempqaer8UxmQyGYlEInfi8Xio1hQ4nc5ti8VyOxQKxeLxuGKz2b5aWlraEEIIl8u1a7VavwwGg78qipKbnJz8AngOMALakiAJMLS3t18/OjqqWUA6nc6mUqlsMpnMrKys/KjRaF4HbpjN5g+GhoY+AoaAV2dmZj5ra2t7C3jJYrFMj42NfQpYgU7Kirp0SGmBLrvd/ubs7OzbGo2mqhPY4/EExsfHvwXSsiwnPB7PBvATcA/QU6zPM4qt5jEgAaRVXwNwF4gCGc71Rxl4HDAvLi5+nc1m8xdFxufzHff09LwHXAcGgD419Fco7pgmoFkd64AW9dqo3i89V/HULkWpE3h+dHT01v7+/t1KQs7OztLLy8teo9F4E+hXF9KiCihvulKFcSXfA5HUSTsBs16vf3dkZOS22+32CyFEIBA4nZ6e/mZgYOBD4AbwLGDg/l720JyfRKIYRj3wJPA00AG0Usz9z6r9ApwCKYq96JFRaVXlhX6FYjE2U+w3cdUUIM8l/Kj9J/4Y69Sp87/md2i25XoLz0XUAAAAAElFTkSuQmCC" alt="Public Key">
+        </a>
+        <a href="https://github.com/AlexanderEkdahl">
+          <img src="data:image/png;base64,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" alt="GitHub">
+        </a>
+      </div>
+    </div>
+  </div>
+  <script>
+    var width = window.innerWidth;
+    var height = window.innerHeight;
+
+    overflow = 0.25;
+
+    var vertices = d3.range(400).map(function(d) {
+    return [
+      Math.random() * width * (1 + overflow) - width * overflow / 2,
+      Math.random() * height * (1 + overflow) - height * overflow / 2,
+    ];
+    });
+
+    vertices.push([0, 0]);window.innerHeight
+    vertices.push([0, height]);
+    vertices.push([width, 0]);
+    vertices.push([width, height]);
+
+    var voronoi = d3.geom.voronoi()
+      .clipExtent([[0, 0], [width, height]]);
+
+    var svg = d3.select("#wrapper").append("svg")
+      .attr("width", width)
+      .attr("height", height);
+
+    d3.select("body").on("mousemove", function() {
+    redraw([event.pageX, event.pageY]);
+    });
+
+    var path = svg.append("g")
+    .selectAll("path")
+    .data(voronoi.triangles(vertices), polygon)
+    .enter().append("path")
+    .attr("d", polygon);
+
+    var color = d3.scale.sqrt()
+      .range(["#65bc84", "#240936"])
+      .clamp(true)
+      .domain([0, distance([0, 0], [width, height]) * 0.5]);
+
+    redraw([width / 2, height / 2]);
+
+    function redraw(mouse) {
+    var colorize = function(d) {
+      return color(distance(mouse, d3.geom.polygon(d).centroid()))
+    }
+
+    path.attr("fill", colorize)
+    }
+
+    function distance(a, b) {
+    var dx = a[0] - b[0];
+    var dy = a[1] - b[1];
+    return dx * dx + dy * dy;
+    }
+
+    function polygon(d) {
+    return "M" + d.join("L") + "Z";
+    }
+  </script>
+</body>
