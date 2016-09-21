@@ -28,6 +28,15 @@ module "www" {
   zone_id = "${aws_route53_zone.primary.zone_id}"
 }
 
+// module "vpn" {
+//   source = "./vpn"
+//   zone_id = "${aws_route53_zone.primary.zone_id}"
+//   subdomain = "${var.subdomain}"
+//   shared_secret = "${var.shared_secret}"
+//   username = "${var.username}"
+//   password = "${var.password}"
+// }
+
 // module "rstudio" {
 //   source = "./rstudio"
 //   zone_id = "${aws_route53_zone.primary.zone_id}"

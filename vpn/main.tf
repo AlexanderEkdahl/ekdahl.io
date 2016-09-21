@@ -3,11 +3,24 @@ variable "subdomain" {}
 variable "shared_secret" {}
 variable "username" {}
 variable "password" {}
-variable "ami" {
-  default = "ami-daaeaec7"
+variable "region" {
+  description = "AWS region to launch the VPN."
+  default = "ap-northeast-1"
+}
+variable "amis" {
+  default = {
+    ap-northeast-2 = "ami-2b408b45"
+    ap-northeast-1 = "ami-374db956"
+  }
 }
 
-resource "template_file" "start" {
+provider "aws" {
+  alias = "current"
+
+  region = "${var.region}"
+}
+
+data "template_file" "start" {
   template = "${file("${path.module}/start.sh")}"
 
   vars {
@@ -18,13 +31,15 @@ resource "template_file" "start" {
 }
 
 resource "aws_instance" "vpn" {
-  ami = "${var.ami}"
+  provider = "aws.current"
+  ami = "${lookup(var.amis, var.region)}"
   instance_type = "t2.micro"
   security_groups = ["${aws_security_group.vpn.name}"]
-  user_data = "${template_file.start.rendered}"
+  user_data = "${data.template_file.start.rendered}"
 }
 
 resource "aws_security_group" "vpn" {
+  provider = "aws.current"
   name = "default-sg-vpn"
   description = "Security group for web that allows inbound VPN traffic and everything outbound"
 
