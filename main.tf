@@ -28,6 +28,11 @@ module "www" {
   zone_id = "${aws_route53_zone.primary.zone_id}"
 }
 
+// module "rstudio" {
+//   source = "./rstudio"
+//   zone_id = "${aws_route53_zone.primary.zone_id}"
+// }
+
 // Zoho Email
 resource "aws_route53_record" "email" {
   zone_id = "${aws_route53_zone.primary.zone_id}"
