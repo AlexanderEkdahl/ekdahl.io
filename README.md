@@ -5,7 +5,6 @@ Mail
 	- @gmail.com
 	- @ekdahl.io - Uses Zoho
 	- @gmail.com
-Filestorage - Annex
 Website - S3
 Keybase
 Apple ID

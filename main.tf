@@ -11,18 +11,6 @@ resource "aws_route53_zone" "primary" {
    name = "ekdahl.io"
 }
 
-module "annex" {
-  source = "./annex"
-}
-
-output "annex_access_key" {
-  value = "${module.annex.access_key}"
-}
-
-output "annex_secret_key" {
-  value = "${module.annex.secret_key}"
-}
-
 module "www" {
   source = "./www"
   zone_id = "${aws_route53_zone.primary.zone_id}"
@@ -35,11 +23,6 @@ module "www" {
 //   shared_secret = "${var.shared_secret}"
 //   username = "${var.username}"
 //   password = "${var.password}"
-// }
-
-// module "rstudio" {
-//   source = "./rstudio"
-//   zone_id = "${aws_route53_zone.primary.zone_id}"
 // }
 
 // Zoho Email
